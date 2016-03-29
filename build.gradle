@@ -1,0 +1,37 @@
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+archivesBaseName = 'CustomEnchantments'
+group = 'adx.audioxd.enchantments'
+version = '1.0'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+
+processResources {
+	from(sourceSets.main.resources.srcDirs) {
+		include 'plugin.yml'
+
+		// replace version and mcversion
+		expand  'plugin_name': project.archivesBaseName, 
+				'plugin_version': project.version,
+				'plugin_main': project.group + '.' + project.archivesBaseName
+	}
+	from(sourceSets.main.resources.srcDirs) {
+		exclude 'plugin.yml'
+		exclude '**/*.dev'
+	}
+}
+
+uploadArchives {
+    repositories {
+        flatDir {
+            dirs '../_extra/CE'
+        }
+    }
+}

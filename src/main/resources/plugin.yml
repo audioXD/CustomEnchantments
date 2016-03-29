@@ -1,0 +1,16 @@
+#####################################################
+# For more info http://wiki.bukkit.org/Plugin_YAML  #
+#####################################################
+name: ${plugin_name}
+version: ${plugin_version}
+description: This is a description
+
+author: audioXD
+
+main: ${plugin_main}
+database: false
+depend: [CustomEnchantmentAPI]
+
+commands:
+  enchantt:
+     description: Set yourself on fire.
