@@ -10,6 +10,7 @@ targetCompatibility = '1.8'
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
+    compile fileTree(dir: '../_extra/_out', include: '*.jar')
 }
 
 
@@ -33,5 +34,8 @@ uploadArchives {
         flatDir {
             dirs '../_extra/CE'
         }
+		flatDir {
+			dirs '../_extra/run/plugins'
+		}
     }
 }
