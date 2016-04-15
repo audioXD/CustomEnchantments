@@ -1,9 +1,6 @@
 package adx.audioxd.enchantments;
 
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-
 import adx.audioxd.customenchantmentapi.enchantment.Enchantment;
 import adx.audioxd.customenchantmentapi.enchantment.event.EnchantmentEventHandler;
 import adx.audioxd.customenchantmentapi.enums.ItemType;
@@ -20,9 +17,12 @@ import adx.audioxd.customenchantmentapi.events.inventory.hand.EItemNotInHandEven
 import adx.audioxd.customenchantmentapi.events.world.EBlockBreakEvent;
 import adx.audioxd.customenchantmentapi.events.world.EBlockPlaceEvent;
 import adx.audioxd.customenchantmentapi.events.world.EInteractEvent;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 public class Debug extends Enchantment {
 
+// Constructor
 	public Debug() {
 		super(ChatColor.GREEN + "Debug Test", ItemType.ALL_OFF_THE_ABOVE, 100);
 	}

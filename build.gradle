@@ -15,18 +15,18 @@ dependencies {
 
 
 processResources {
-	from(sourceSets.main.resources.srcDirs) {
-		include 'plugin.yml'
+    from(sourceSets.main.resources.srcDirs) {
+        include 'plugin.yml'
 
-		// replace version and mcversion
-		expand  'plugin_name': project.archivesBaseName, 
-				'plugin_version': project.version,
-				'plugin_main': project.group + '.' + project.archivesBaseName
-	}
-	from(sourceSets.main.resources.srcDirs) {
-		exclude 'plugin.yml'
-		exclude '**/*.dev'
-	}
+        // replace version and mcversion
+        expand 'plugin_name': project.archivesBaseName,
+                'plugin_version': project.version,
+                'plugin_main': project.group + '.' + project.archivesBaseName
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'plugin.yml'
+        exclude '**/*.dev'
+    }
 }
 
 uploadArchives {
@@ -34,8 +34,8 @@ uploadArchives {
         flatDir {
             dirs '../_extra/CE'
         }
-		flatDir {
-			dirs '../_extra/run/plugins'
-		}
+        flatDir {
+            dirs '../_extra/run/plugins'
+        }
     }
 }
