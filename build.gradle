@@ -22,6 +22,8 @@ dependencies {
         transitive = false
     }
     compile group: 'org.bukkit', name: 'bukkit', version: '1.8-R0.1-SNAPSHOT'
+
+    // To the folder where the CustomEnchantmentAPI.jar is
     compile fileTree(dir: '../CustomEnchantmentAPI/output/latest', include: '*.jar')
 
     testCompile 'junit:junit:4.12'
