@@ -4,24 +4,37 @@ apply plugin: 'java'
 archivesBaseName = 'CustomEnchantments'
 group = 'adx.audioxd.enchantments'
 version = '1.0'
+def MainClass = group + '.' + archivesBaseName
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
-dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
-    compile fileTree(dir: '../_extra/_out', include: '*.jar')
+repositories {
+    mavenCentral()
+    maven {
+        url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
 }
 
+dependencies {
+    compile(group: 'org.spigotmc', name: 'spigot-api', version: '1.8-R0.1-SNAPSHOT') {
+        // Because the bungeecord-chat.jar isn't being found
+        transitive = false
+    }
+    compile group: 'org.bukkit', name: 'bukkit', version: '1.8-R0.1-SNAPSHOT'
+    compile fileTree(dir: '../CustomEnchantmentAPI/output/latest', include: '*.jar')
 
+    testCompile 'junit:junit:4.12'
+}
+
+// To process the plugin.yml file for ease of access
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'plugin.yml'
 
-        // replace version and mcversion
-        expand 'plugin_name': project.archivesBaseName,
-                'plugin_version': project.version,
-                'plugin_main': project.group + '.' + project.archivesBaseName
+        expand 'plugin_name': archivesBaseName,
+                'plugin_version': version,
+                'plugin_main': MainClass
     }
     from(sourceSets.main.resources.srcDirs) {
         exclude 'plugin.yml'
@@ -29,6 +42,34 @@ processResources {
     }
 }
 
+// Where to upload the output Files
+uploadArchives {
+    repositories {
+        flatDir {
+            dirs '/output/' + version
+        }
+    }
+    repositories {
+        flatDir {
+            dirs '/output/latest'
+        }
+    }
+}
+
+/* ********************************************************************************* */
+/*                          [For my personal use]                                    */
+/* ********************************************************************************* */
+tasks.uploadArchives.dependsOn(clean)
+// Deletes every file except .gitignore
+clean.doFirst {
+    if (file("/output/latest").exists()) {
+        new File(rootDir, "/output/latest").eachFile() { file ->
+            if (!file.getName().equalsIgnoreCase(".gitignore")) {
+                delete file.getPath()
+            }
+        }
+    }
+}
 uploadArchives {
     repositories {
         flatDir {
@@ -38,4 +79,9 @@ uploadArchives {
             dirs '../_extra/run/plugins'
         }
     }
+}
+
+// This for generating the gradle wrapper
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.12'
 }
