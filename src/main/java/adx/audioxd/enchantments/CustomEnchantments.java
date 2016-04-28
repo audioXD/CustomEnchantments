@@ -10,6 +10,7 @@ public class CustomEnchantments extends CEPLPlugin {
 
 	// Global fields
 	public static Enchantment TEST = new Testing();
+	public static Enchantment EXPLOSIVE = new Expolosive();
 	public static Enchantment DEBUG = new Debug();
 // End of Global Fields
 
@@ -19,6 +20,8 @@ public class CustomEnchantments extends CEPLPlugin {
 			getPluginLogger().severe("Culdn't enable " + TEST.getName() + " enchantmnt");
 		if(!EnchantmentRegistry.register(this, DEBUG))
 			getPluginLogger().severe("Culdn't enable " + DEBUG.getName() + " enchantmnt");
+		if(!EnchantmentRegistry.register(this, EXPLOSIVE))
+			getPluginLogger().severe("Culdn't enable " + EXPLOSIVE.getName() + " enchantmnt");
 	}
 
 	public void Disable() {}
