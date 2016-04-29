@@ -55,7 +55,6 @@ public class Hammer extends Enchantment {
 					yRadius = radius;
 					zRadius = 0;
 				}
-				Bukkit.broadcastMessage("X: " + xRadius + ", Y: " + yRadius + ", Z: " + zRadius);
 
 			}
 
