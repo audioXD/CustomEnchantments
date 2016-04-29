@@ -75,7 +75,9 @@ public class Hammer extends Enchantment {
 					if(block.isLiquid()
 							|| block.getType().equals(Material.BEDROCK)
 							|| block.getType().equals(Material.BARRIER)) continue;
+					// TODO Here you put you block break things.
 					block.breakNaturally(event.getItem());
+
 				}
 				owner.updateInventory();
 			}

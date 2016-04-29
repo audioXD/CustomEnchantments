@@ -48,15 +48,12 @@ public class Expolosive extends Enchantment {
 			if(!e.isCancelled()) {
 				// Explosion effect does 0 damage.
 				event.getOwner().getWorld().createExplosion(blockLocation, 0);
-
+				
 				for(Block block : e.blockList()) {
 					if(block.isLiquid()
 							|| block.getType().equals(Material.BEDROCK)
 							|| block.getType().equals(Material.BARRIER)) continue;
-
-					/*for(ItemStack item : block.getDrops(event.getItem())) {
-						owner.getInventory().addItem(item);
-					}*/
+					// TODO Here you put you block break things.
 					block.breakNaturally(event.getItem());
 				}
 				owner.updateInventory();
