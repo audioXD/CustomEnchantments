@@ -12,7 +12,6 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,12 +50,15 @@ public class Expolosive extends Enchantment {
 				event.getOwner().getWorld().createExplosion(blockLocation, 0);
 
 				for(Block block : e.blockList()) {
-					for(ItemStack item : block.getDrops()) {
-						owner.getInventory().addItem(item);
-					}
-					block.setType(Material.AIR);
-				}
+					if(block.isLiquid()
+							|| block.getType().equals(Material.BEDROCK)
+							|| block.getType().equals(Material.BARRIER)) continue;
 
+					/*for(ItemStack item : block.getDrops(event.getItem())) {
+						owner.getInventory().addItem(item);
+					}*/
+					block.breakNaturally(event.getItem());
+				}
 				owner.updateInventory();
 			}
 		}

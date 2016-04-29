@@ -11,7 +11,9 @@ public class CustomEnchantments extends CEPLPlugin {
 	// Global fields
 	public static Enchantment TEST = new Testing();
 	public static Enchantment EXPLOSIVE = new Expolosive();
+	public static Enchantment HAMMER = new Hammer();
 	public static Enchantment DEBUG = new Debug();
+	public static Enchantment OMNI_TOOL = new Omnitool();
 // End of Global Fields
 
 	@Override
@@ -22,6 +24,12 @@ public class CustomEnchantments extends CEPLPlugin {
 			getPluginLogger().severe("Culdn't enable " + DEBUG.getName() + " enchantmnt");
 		if(!EnchantmentRegistry.register(this, EXPLOSIVE))
 			getPluginLogger().severe("Culdn't enable " + EXPLOSIVE.getName() + " enchantmnt");
+
+		if(!EnchantmentRegistry.register(this, OMNI_TOOL))
+			getPluginLogger().severe("Culdn't enable " + OMNI_TOOL.getName() + " enchantmnt");
+
+		if(!EnchantmentRegistry.register(this, HAMMER))
+			getPluginLogger().severe("Culdn't enable " + HAMMER.getName() + " enchantmnt");
 	}
 
 	public void Disable() {}
