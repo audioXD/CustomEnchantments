@@ -37,13 +37,15 @@ public class Hammer extends Enchantment {
 			{
 				Location loc = owner.getLocation();
 				int yaw = (int) loc.getYaw();
+				yaw = yaw / 180 >= 1 ? -(yaw % 180) : yaw;
+
 				int pitch = (int) loc.getPitch();
 				if((pitch <= -45 && pitch >= -90) || (pitch >= 45 && pitch <= 90)) {
 					//Up down
 					xRadius = radius;
 					yRadius = 0;
 					zRadius = radius;
-				} else if((yaw > -135 && yaw < -45) || (yaw > 45 && yaw < 135)) {
+				} else if((yaw >= -135 && yaw <= -45) || (yaw >= 45 && yaw <= 135)) {
 					// east west
 					xRadius = 0;
 					yRadius = radius;
@@ -79,5 +81,4 @@ public class Hammer extends Enchantment {
 			}
 		}
 	}
-
 }
