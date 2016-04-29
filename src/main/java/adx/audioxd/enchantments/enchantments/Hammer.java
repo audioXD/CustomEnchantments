@@ -1,4 +1,4 @@
-package adx.audioxd.enchantments;
+package adx.audioxd.enchantments.enchantments;
 
 
 import adx.audioxd.customenchantmentapi.enchantment.Enchantment;
@@ -33,7 +33,6 @@ public class Hammer extends Enchantment {
 
 		List<Block> blocks = new ArrayList<>();
 		{
-
 			final int xRadius, yRadius, zRadius, radius = event.getLvl();
 			{
 				Location loc = owner.getLocation();
@@ -55,7 +54,6 @@ public class Hammer extends Enchantment {
 					yRadius = radius;
 					zRadius = 0;
 				}
-
 			}
 
 			for(int xOff = -xRadius; xOff <= xRadius; ++xOff) {

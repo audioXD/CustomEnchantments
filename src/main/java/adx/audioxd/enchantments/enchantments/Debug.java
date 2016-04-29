@@ -1,4 +1,4 @@
-package adx.audioxd.enchantments;
+package adx.audioxd.enchantments.enchantments;
 
 
 import adx.audioxd.customenchantmentapi.enchantment.Enchantment;

@@ -4,6 +4,9 @@ package adx.audioxd.enchantments;
 import adx.audioxd.customenchantmentapi.EnchantmentRegistry;
 import adx.audioxd.customenchantmentapi.enchantment.Enchantment;
 import adx.audioxd.customenchantmentapi.plugin.CEPLPlugin;
+import adx.audioxd.enchantments.enchantments.*;
+import adx.audioxd.enchantments.event.EHotbarSwapListener;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 public class CustomEnchantments extends CEPLPlugin {
@@ -30,6 +33,8 @@ public class CustomEnchantments extends CEPLPlugin {
 
 		if(!EnchantmentRegistry.register(this, HAMMER))
 			getPluginLogger().severe("Culdn't enable " + HAMMER.getName() + " enchantmnt");
+
+		Bukkit.getPluginManager().registerEvents(new EHotbarSwapListener(), this);
 	}
 
 	public void Disable() {}
