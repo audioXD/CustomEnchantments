@@ -10,3 +10,7 @@ author: audioXD
 main: ${plugin_main}
 database: false
 depend: [CustomEnchantmentAPI]
+
+commands:
+   testGUI:
+     description: Opens The Test GUI.

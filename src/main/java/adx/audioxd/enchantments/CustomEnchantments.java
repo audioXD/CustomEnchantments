@@ -6,7 +6,12 @@ import adx.audioxd.customenchantmentapi.enchantment.Enchantment;
 import adx.audioxd.customenchantmentapi.plugin.CEPLPlugin;
 import adx.audioxd.enchantments.enchantments.*;
 import adx.audioxd.enchantments.event.EHotbarSwapListener;
+import adx.audioxd.enchantments.gui.TestGUI;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class CustomEnchantments extends CEPLPlugin {
@@ -35,11 +40,28 @@ public class CustomEnchantments extends CEPLPlugin {
 			getPluginLogger().severe("Culdn't enable " + HAMMER.getName() + " enchantmnt");
 
 		Bukkit.getPluginManager().registerEvents(new EHotbarSwapListener(), this);
+
+		TestGUI.get().activate(this);
 	}
 
 	public void Disable() {}
 
 	public void enchatWithTest(ItemStack item) {
 		EnchantmentRegistry.enchant(item, TEST, 1, false, false);
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+		if(label.equalsIgnoreCase("testGUI")) {
+			if(sender instanceof Player) {
+				TestGUI.get().openGUI((Player) sender);
+				return true;
+			} else {
+				sender.sendMessage(ChatColor.RED + "This command must be executed ba a Player!");
+			}
+		}
+
+		return super.onCommand(sender, command, label, args);
 	}
 }
