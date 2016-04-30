@@ -58,21 +58,14 @@ public class Hammer extends Enchantment {
 				CustomEnchantmentAPI.getInstance().getNSM().getItemInMainHand(event.getOwner()),
 				this
 		);
-		{
-			for(int xOff = -xRadius; xOff <= xRadius; ++xOff) {
-				for(int yOff = -yRadius; yOff <= yRadius; ++yOff) {
-					for(int zOff = -zRadius; zOff <= zRadius; ++zOff) {
-						Block block = event.getBlock().getRelative(xOff, yOff, zOff);
-
-						BlockBreakEvent e = new BlockBreakEvent(block, owner);
-						{
-							Bukkit.getPluginManager().callEvent(e);
-						}
-
-						if(!e.isCancelled()) {
-							block.breakNaturally(event.getItem());
-						}
-					}
+		for(int xOff = -xRadius; xOff <= xRadius; ++xOff) {
+			for(int yOff = -yRadius; yOff <= yRadius; ++yOff) {
+				for(int zOff = -zRadius; zOff <= zRadius; ++zOff) {
+					Block block = event.getBlock().getRelative(xOff, yOff, zOff);
+					BlockBreakEvent e = new BlockBreakEvent(block, owner);
+					Bukkit.getPluginManager().callEvent(e);
+					if(!e.isCancelled())
+						block.breakNaturally(event.getItem());
 				}
 			}
 		}

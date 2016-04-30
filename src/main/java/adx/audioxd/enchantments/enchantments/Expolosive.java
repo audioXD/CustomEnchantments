@@ -38,21 +38,15 @@ public class Expolosive extends Enchantment {
 					CustomEnchantmentAPI.getInstance().getNSM().getItemInMainHand(event.getOwner()),
 					this
 			);
-			{
-				for(int x = (blockLocation.getBlockX() - radius); x <= (blockLocation.getBlockX() + radius); x++) {
-					for(int y = (blockLocation.getBlockY() - radius); y <= (blockLocation.getBlockY() + radius); y++) {
-						for(int z = (blockLocation.getBlockZ() - radius); z <= (blockLocation.getBlockZ() + radius); z++) {
-							Block block = blockLocation.getWorld().getBlockAt(x, y, z);
-
-							BlockBreakEvent e = new BlockBreakEvent(block, owner);
-							{
-								Bukkit.getPluginManager().callEvent(e);
-							}
-
-							if(!e.isCancelled()) {
-								block.breakNaturally();
-							}
-						}
+			blockLocation.getWorld().createExplosion(blockLocation, 0);
+			for(int x = (blockLocation.getBlockX() - radius); x <= (blockLocation.getBlockX() + radius); x++) {
+				for(int y = (blockLocation.getBlockY() - radius); y <= (blockLocation.getBlockY() + radius); y++) {
+					for(int z = (blockLocation.getBlockZ() - radius); z <= (blockLocation.getBlockZ() + radius); z++) {
+						Block block = blockLocation.getWorld().getBlockAt(x, y, z);
+						BlockBreakEvent e = new BlockBreakEvent(block, owner);
+						Bukkit.getPluginManager().callEvent(e);
+						if(!e.isCancelled())
+							block.breakNaturally();
 					}
 				}
 			}
