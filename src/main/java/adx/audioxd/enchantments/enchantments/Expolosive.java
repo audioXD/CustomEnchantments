@@ -10,7 +10,6 @@ import adx.audioxd.customenchantmentapi.events.world.EBlockBreakEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -48,11 +47,6 @@ public class Expolosive extends Enchantment {
 							BlockBreakEvent e = new BlockBreakEvent(block, owner);
 							{
 								Bukkit.getPluginManager().callEvent(e);
-							}
-
-							if(block.getDrops().isEmpty()) {
-								block.setType(Material.AIR);
-								continue;
 							}
 
 							if(!e.isCancelled()) {
