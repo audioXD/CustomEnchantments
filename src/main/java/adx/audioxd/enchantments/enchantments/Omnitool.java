@@ -41,17 +41,27 @@ public class Omnitool extends Enchantment {
 		if(event.getPrewSlot() - event.getNewSlot() == 0) return;
 		if(!((Player) event.getOwner()).isSneaking()) return;
 
-		event.setCancelled(true);
+		//78 012345678 012
+		int i = event.getPrewSlot(), j = event.getNewSlot();
+
+		boolean next = (j - i) > 0;
+		if(i == 0 && j == 8) {
+			next = false;
+		} else if(j == 0 && i == 8) {
+			next = true;
+		}
 
 		event.getItem().setType(
 				changeOmnitool(
 						event.getItem().getType(),
 						getNextPrewMaterial(
-								(event.getPrewSlot() - event.getNewSlot() < 0),
+								next,
 								event.getItem().getType()
 						)
 				)
 		);
+
+		event.setCancelled(true);
 	}
 
 	private static Material changeOmnitool(Material now, Material target) {

@@ -14,6 +14,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Random;
+
 public class CustomEnchantments extends CEPLPlugin {
 
 	// Global fields
@@ -27,21 +29,21 @@ public class CustomEnchantments extends CEPLPlugin {
 	@Override
 	public void Enable() {
 		if(!EnchantmentRegistry.register(this, TEST))
-			getPluginLogger().severe("Culdn't enable " + TEST.getName() + " enchantmnt");
+			getPluginLogger().severe("Couldn't Enable " + TEST.getName() + " Enchantment");
 		if(!EnchantmentRegistry.register(this, DEBUG))
-			getPluginLogger().severe("Culdn't enable " + DEBUG.getName() + " enchantmnt");
+			getPluginLogger().severe("Couldn't Enable " + DEBUG.getName() + " Enchantment");
 		if(!EnchantmentRegistry.register(this, EXPLOSIVE))
-			getPluginLogger().severe("Culdn't enable " + EXPLOSIVE.getName() + " enchantmnt");
-
+			getPluginLogger().severe("Couldn't Enable " + EXPLOSIVE.getName() + " Enchantment");
 		if(!EnchantmentRegistry.register(this, OMNI_TOOL))
-			getPluginLogger().severe("Culdn't enable " + OMNI_TOOL.getName() + " enchantmnt");
-
+			getPluginLogger().severe("Couldn't Enable " + OMNI_TOOL.getName() + " Enchantment");
 		if(!EnchantmentRegistry.register(this, HAMMER))
-			getPluginLogger().severe("Culdn't enable " + HAMMER.getName() + " enchantmnt");
+			getPluginLogger().severe("Couldn't Enable " + HAMMER.getName() + " Enchantment");
 
 		Bukkit.getPluginManager().registerEvents(new EHotbarSwapListener(), this);
 
+		// This activated the GUI
 		TestGUI.get().activate(this);
+
 	}
 
 	public void Disable() {}
@@ -64,4 +66,11 @@ public class CustomEnchantments extends CEPLPlugin {
 
 		return super.onCommand(sender, command, label, args);
 	}
+
+
+	public Enchantment randomeEnchantment() {
+		Enchantment[] all_enchs = EnchantmentRegistry.getEnchantmentsArray();
+		return all_enchs[new Random().nextInt(all_enchs.length)];
+	}
+
 }

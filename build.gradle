@@ -29,6 +29,8 @@ dependencies {
     // To the folder where the CustomEnchantmentAPI.jar is
     compile fileTree(dir: '../CustomEnchantmentAPI/output/latest', include: '*.jar')
 
+    compile fileTree(dir: '/libs', include: '*.jar')
+
     testCompile 'junit:junit:4.12'
 }
 

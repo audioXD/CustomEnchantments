@@ -1,6 +1,8 @@
 package adx.audioxd.enchantments.enchantments;
 
 
+import adx.audioxd.customenchantmentapi.CustomEnchantmentAPI;
+import adx.audioxd.customenchantmentapi.EnchantmentRegistry;
 import adx.audioxd.customenchantmentapi.enchantment.Enchantment;
 import adx.audioxd.customenchantmentapi.enchantment.event.EnchantmentEventHandler;
 import adx.audioxd.customenchantmentapi.enums.ItemType;
@@ -11,10 +13,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.block.BlockBreakEvent;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Expolosive extends Enchantment {
@@ -26,6 +26,7 @@ public class Expolosive extends Enchantment {
 	@EnchantmentEventHandler
 	public void explode(EBlockBreakEvent event) {
 		if(!(event.getOwner() instanceof Player)) return;
+		if(!this.getType().matchType(event.getItem())) return;
 
 		Player owner = (Player) event.getOwner();
 		// A 70% chance
@@ -33,33 +34,44 @@ public class Expolosive extends Enchantment {
 			Location blockLocation = event.getBlock().getLocation();
 
 			int radius = 1;
-			List<Block> blocks = new ArrayList<>();
-			for(int x = (blockLocation.getBlockX() - radius); x <= (blockLocation.getBlockX() + radius); x++) {
-				for(int y = (blockLocation.getBlockY() - radius); y <= (blockLocation.getBlockY() + radius); y++) {
-					for(int z = (blockLocation.getBlockZ() - radius); z <= (blockLocation.getBlockZ() + radius); z++) {
-						Block block = blockLocation.getWorld().getBlockAt(x, y, z);
-						blocks.add(block);
+
+			EnchantmentRegistry.unenchant(
+					CustomEnchantmentAPI.getInstance().getNSM().getItemInMainHand(event.getOwner()),
+					this
+			);
+			{
+				for(int x = (blockLocation.getBlockX() - radius); x <= (blockLocation.getBlockX() + radius); x++) {
+					for(int y = (blockLocation.getBlockY() - radius); y <= (blockLocation.getBlockY() + radius); y++) {
+						for(int z = (blockLocation.getBlockZ() - radius); z <= (blockLocation.getBlockZ() + radius); z++) {
+							Block block = blockLocation.getWorld().getBlockAt(x, y, z);
+
+							BlockBreakEvent e = new BlockBreakEvent(block, owner);
+							{
+								Bukkit.getPluginManager().callEvent(e);
+							}
+
+							if(block.getDrops().isEmpty()) {
+								block.setType(Material.AIR);
+								continue;
+							}
+
+							if(!e.isCancelled()) {
+								block.breakNaturally();
+							}
+						}
 					}
 				}
 			}
+			EnchantmentRegistry.enchant(
+					CustomEnchantmentAPI.getInstance().getNSM().getItemInMainHand(event.getOwner()),
+					this,
+					event.getLvl(),
+					true,
+					false
+			);
 
-			EntityExplodeEvent e = new EntityExplodeEvent(null, blockLocation, blocks, 0);
-			Bukkit.getPluginManager().callEvent(e);
-			if(!e.isCancelled()) {
-				// Explosion effect does 0 damage.
-				event.getOwner().getWorld().createExplosion(blockLocation, 0);
-				
-				for(Block block : e.blockList()) {
-					if(block.isLiquid()
-							|| block.getType().equals(Material.BEDROCK)
-							|| block.getType().equals(Material.BARRIER)) continue;
-					// TODO Here you put you block break things.
-					block.breakNaturally(event.getItem());
-				}
-				owner.updateInventory();
-			}
+			event.setCancelled(true);
 		}
-
 	}
 
 }
