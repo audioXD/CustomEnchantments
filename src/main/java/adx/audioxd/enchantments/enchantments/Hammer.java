@@ -73,7 +73,6 @@ public class Hammer extends Enchantment {
 
 							|| Material.LOG.equals(block.getType())
 							|| Material.WOOD.equals(block.getType())
-							|| ItemUtilEnum.INTERFACABLE_TILE_ENTITIES.matchType(block.getType())
 
 							|| Material.SAND.equals(block.getType())
 							|| Material.GRAVEL.equals(block.getType())) continue;
