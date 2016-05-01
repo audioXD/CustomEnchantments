@@ -10,6 +10,7 @@ import adx.audioxd.customenchantmentapi.events.world.EBlockBreakEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -43,6 +44,11 @@ public class Expolosive extends Enchantment {
 				for(int y = (blockLocation.getBlockY() - radius); y <= (blockLocation.getBlockY() + radius); y++) {
 					for(int z = (blockLocation.getBlockZ() - radius); z <= (blockLocation.getBlockZ() + radius); z++) {
 						Block block = blockLocation.getWorld().getBlockAt(x, y, z);
+
+						if(block.getType().equals(Material.BARRIER)
+								|| block.getType().equals(Material.BEDROCK)
+								|| block.isLiquid()) continue;
+
 						BlockBreakEvent e = new BlockBreakEvent(block, owner);
 						Bukkit.getPluginManager().callEvent(e);
 						if(!e.isCancelled())

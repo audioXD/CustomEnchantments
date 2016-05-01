@@ -6,10 +6,12 @@ import adx.audioxd.customenchantmentapi.EnchantmentRegistry;
 import adx.audioxd.customenchantmentapi.enchantment.Enchantment;
 import adx.audioxd.customenchantmentapi.enchantment.event.EnchantmentEventHandler;
 import adx.audioxd.customenchantmentapi.enums.ItemType;
+import adx.audioxd.customenchantmentapi.enums.ItemUtilEnum;
 import adx.audioxd.customenchantmentapi.events.world.EBlockBreakEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -62,6 +64,20 @@ public class Hammer extends Enchantment {
 			for(int yOff = -yRadius; yOff <= yRadius; ++yOff) {
 				for(int zOff = -zRadius; zOff <= zRadius; ++zOff) {
 					Block block = event.getBlock().getRelative(xOff, yOff, zOff);
+					if(Material.BARRIER.equals(block.getType())
+							|| Material.BEDROCK.equals(block.getType())
+							|| block.isLiquid()
+
+							|| Material.DIRT.equals(block.getType())
+							|| Material.GRASS.equals(block.getType())
+
+							|| Material.LOG.equals(block.getType())
+							|| Material.WOOD.equals(block.getType())
+							|| ItemUtilEnum.INTERFACABLE_TILE_ENTITIES.matchType(block.getType())
+
+							|| Material.SAND.equals(block.getType())
+							|| Material.GRAVEL.equals(block.getType())) continue;
+
 					BlockBreakEvent e = new BlockBreakEvent(block, owner);
 					Bukkit.getPluginManager().callEvent(e);
 					if(!e.isCancelled())
