@@ -63,6 +63,8 @@ public class Hammer extends Enchantment {
 			for(int yOff = -yRadius; yOff <= yRadius; ++yOff) {
 				for(int zOff = -zRadius; zOff <= zRadius; ++zOff) {
 					Block block = event.getBlock().getRelative(xOff, yOff, zOff);
+					if(block == event.getBlock()) continue;
+
 					if(Material.BARRIER.equals(block.getType())
 							|| Material.BEDROCK.equals(block.getType())
 							|| block.isLiquid()
@@ -92,8 +94,6 @@ public class Hammer extends Enchantment {
 				true,
 				false
 		);
-
-		event.setCancelled(true);
 	}
 
 }
