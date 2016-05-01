@@ -6,7 +6,6 @@ import adx.audioxd.customenchantmentapi.EnchantmentRegistry;
 import adx.audioxd.customenchantmentapi.enchantment.Enchantment;
 import adx.audioxd.customenchantmentapi.enchantment.event.EnchantmentEventHandler;
 import adx.audioxd.customenchantmentapi.enums.ItemType;
-import adx.audioxd.customenchantmentapi.enums.ItemUtilEnum;
 import adx.audioxd.customenchantmentapi.events.world.EBlockBreakEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -75,7 +74,9 @@ public class Hammer extends Enchantment {
 							|| Material.WOOD.equals(block.getType())
 
 							|| Material.SAND.equals(block.getType())
-							|| Material.GRAVEL.equals(block.getType())) continue;
+							|| Material.GRAVEL.equals(block.getType())
+
+							|| block.getDrops(event.getItem()).isEmpty()) continue;
 
 					BlockBreakEvent e = new BlockBreakEvent(block, owner);
 					Bukkit.getPluginManager().callEvent(e);
