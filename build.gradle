@@ -80,7 +80,7 @@ clean.doFirst {
 uploadArchives {
     repositories {
         flatDir {
-            dirs '../_extra/CE'
+            dirs '../_extra/output/' + archivesBaseName
         }
         flatDir {
             dirs '../_extra/run/plugins'
