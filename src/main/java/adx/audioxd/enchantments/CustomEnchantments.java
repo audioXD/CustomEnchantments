@@ -7,6 +7,7 @@ import adx.audioxd.customenchantmentapi.plugin.CEPLPlugin;
 import adx.audioxd.enchantments.enchantments.*;
 import adx.audioxd.enchantments.event.EHotbarSwapListener;
 import adx.audioxd.enchantments.gui.TestGUI;
+import adx.audioxd.enchantments.init.initRecipies;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -44,6 +45,7 @@ public class CustomEnchantments extends CEPLPlugin {
 		// This activated the GUI
 		TestGUI.get().activate(this);
 
+		initRecipies.init();
 	}
 
 	public void Disable() {}
