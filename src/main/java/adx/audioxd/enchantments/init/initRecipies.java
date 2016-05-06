@@ -21,6 +21,13 @@ public class initRecipies {
 		EnchantmentRegistry.enchant(GOLD_HAMMER, CustomEnchantments.HAMMER, 1, true, true);
 		EnchantmentRegistry.enchant(IRON_HAMMER, CustomEnchantments.HAMMER, 1, true, true);
 		EnchantmentRegistry.enchant(DIAMOND_HAMMER, CustomEnchantments.HAMMER, 1, true, true);
+
+		WOODEN_HAMMER.setDurability((short) -(WOODEN_HAMMER.getType().getMaxDurability() / 3 * 2));
+		STONE_HAMMER.setDurability((short) -(STONE_HAMMER.getType().getMaxDurability() / 3 * 2));
+		GOLD_HAMMER.setDurability((short) -(GOLD_HAMMER.getType().getMaxDurability() / 3 * 2));
+		IRON_HAMMER.setDurability((short) -(IRON_HAMMER.getType().getMaxDurability() / 3 * 2));
+		DIAMOND_HAMMER.setDurability((short) -(DIAMOND_HAMMER.getType().getMaxDurability() / 3 * 2));
+
 	}
 
 	private static ShapedRecipe wRecipe = new ShapedRecipe(WOODEN_HAMMER);
