@@ -1,18 +1,20 @@
 package adx.audioxd.enchantments.event;
 
 
+import adx.audioxd.customenchantmentapi.enchantment.event.EnchantmentEventWithLevel;
 import adx.audioxd.customenchantmentapi.enchantment.event.extra.EnchantmentEventWithOwnerAndItem;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Cancellable;
 import org.bukkit.inventory.ItemStack;
 
+@EnchantmentEventWithLevel
 public class EHotbarSwapEvent extends EnchantmentEventWithOwnerAndItem implements Cancellable {
 
 	private boolean cancelled = false;
 	private final int prewSlot, newSlot;
 
-	public EHotbarSwapEvent(int lvl, LivingEntity owner, ItemStack item, int prewSlot, int newSlot) {
-		super(lvl, owner, item);
+	public EHotbarSwapEvent(LivingEntity owner, ItemStack item, int prewSlot, int newSlot) {
+		super(owner, item);
 		this.prewSlot = prewSlot;
 		this.newSlot = newSlot;
 	}

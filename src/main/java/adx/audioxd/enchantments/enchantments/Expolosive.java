@@ -24,7 +24,7 @@ public class Expolosive extends Enchantment {
 	}
 
 	@EnchantmentEventHandler
-	public void explode(EBlockBreakEvent event) {
+	public void explode(EBlockBreakEvent event, int lvl) {
 		if(!(event.getOwner() instanceof Player)) return;
 		if(!this.getType().matchType(event.getItem())) return;
 
@@ -59,7 +59,7 @@ public class Expolosive extends Enchantment {
 			EnchantmentRegistry.enchant(
 					CustomEnchantmentAPI.getInstance().getNSM().getItemInMainHand(event.getOwner()),
 					this,
-					event.getLvl(),
+					lvl,
 					true,
 					false
 			);

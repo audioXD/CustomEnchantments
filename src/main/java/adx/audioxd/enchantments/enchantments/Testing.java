@@ -29,8 +29,8 @@ public class Testing extends Enchantment {
 	}
 
 	@EnchantmentEventHandler
-	public void enchant(EEnchantEvent event) {
-		Bukkit.broadcastMessage(ChatColor.GREEN + " enchanted" + event.getItem() + " and at level" + event.getLvl());
+	public void enchant(EEnchantEvent event, int lvl) {
+		Bukkit.broadcastMessage(ChatColor.GREEN + " enchanted" + event.getItem() + " and at level" + lvl);
 	}
 
 	@EnchantmentEventHandler
@@ -39,14 +39,14 @@ public class Testing extends Enchantment {
 	}
 
 	@EnchantmentEventHandler
-	public void onEquip(EEquipEvent event) {
+	public void onEquip(EEquipEvent event, int lvl) {
 		if(event.getOwner() instanceof Player) {
 			Player player = (Player) event.getOwner();
 			player.setAllowFlight(true);
 		}
 		event.getOwner().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 720000, 1));
-		event.getOwner().addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 720000, event.getLvl()));
-		event.getOwner().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 720000, event.getLvl()));
+		event.getOwner().addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 720000, lvl));
+		event.getOwner().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 720000, lvl));
 	}
 
 	@EnchantmentEventHandler
@@ -61,8 +61,8 @@ public class Testing extends Enchantment {
 	}
 
 	@EnchantmentEventHandler
-	public void onItemInHand(EItemInOffHandEvent event) {
-		event.getOwner().addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 720000, event.getLvl()));
+	public void onItemInHand(EItemInOffHandEvent event, int lvl) {
+		event.getOwner().addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 720000, lvl));
 	}
 
 	@EnchantmentEventHandler
@@ -71,8 +71,8 @@ public class Testing extends Enchantment {
 	}
 
 	@EnchantmentEventHandler
-	public void onItemInHand2(EItemInMainHandEvent event) {
-		event.getOwner().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 720000, event.getLvl()));
+	public void onItemInHand2(EItemInMainHandEvent event, int lvl) {
+		event.getOwner().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 720000, lvl));
 	}
 
 	@EnchantmentEventHandler
@@ -81,8 +81,8 @@ public class Testing extends Enchantment {
 	}
 
 	@EnchantmentEventHandler
-	public void onArrowHit(EArrowHitEvent event) {
-		event.getArrow().getWorld().createExplosion(event.getArrow().getLocation(), event.getLvl());
+	public void onArrowHit(EArrowHitEvent event, int lvl) {
+		event.getArrow().getWorld().createExplosion(event.getArrow().getLocation(), lvl);
 		event.getArrow().remove();
 	}
 

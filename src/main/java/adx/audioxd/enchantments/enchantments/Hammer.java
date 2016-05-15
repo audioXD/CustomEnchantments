@@ -22,7 +22,7 @@ public class Hammer extends Enchantment {
 	}
 
 	@EnchantmentEventHandler
-	public void explode(EBlockBreakEvent event) {
+	public void explode(EBlockBreakEvent event, int lvl) {
 		if(!(event.getOwner() instanceof Player)) return;
 		if(!this.getType().matchType(event.getItem())) return;
 
@@ -31,7 +31,7 @@ public class Hammer extends Enchantment {
 
 		Location blockLocation = event.getBlock().getLocation();
 
-		final int xRadius, yRadius, zRadius, radius = event.getLvl();
+		final int xRadius, yRadius, zRadius, radius = lvl;
 		{
 			Location loc = owner.getLocation();
 			int yaw = (int) loc.getYaw();
@@ -90,7 +90,7 @@ public class Hammer extends Enchantment {
 		EnchantmentRegistry.enchant(
 				CustomEnchantmentAPI.getInstance().getNSM().getItemInMainHand(event.getOwner()),
 				this,
-				event.getLvl(),
+				lvl,
 				true,
 				false
 		);
