@@ -21,7 +21,7 @@ public abstract class GUI implements Listener {
 
 	private int largestSlot = 0;
 
-// Constructor
+	// Constructor
 	public GUI(String title) {
 		options = new HashMap<>();
 		this.title = title;
@@ -35,40 +35,59 @@ public abstract class GUI implements Listener {
 
 	public final void openGUI(Player player) {
 		Inventory inventory = Bukkit.createInventory(player, ySize * 9, title);
-
+		onCreate(player, inventory);
+		player.openInventory(inventory);
+	}
+	public void onCreate(Player player, Inventory inventory){
 		for(int slot : options.keySet()) {
 			if(slot <= inventory.getSize() - 1)
 				inventory.setItem(slot, options.get(slot).getIcon());
 		}
-		player.openInventory(inventory);
 	}
 
-	public final boolean addGUIOption(GUIOption option) {
-		if(!options.containsKey(option.getSlot())) {
-			options.put(option.getSlot(), option);
+	public final boolean addGUIOption(int slot, ItemStack icon) {
+		return addGUIOption(slot, new GUIOption(icon, null));
+	}
+	public final boolean addGUIOption(int slot, GUIOption option) {
+		if(!options.containsKey(slot)) {
+			options.put(slot, option);
 
-			if(option.getSlot() > largestSlot)
-				largestSlot = option.getSlot();
+			if(slot > largestSlot)
+				largestSlot = slot;
 			return true;
 		}
 		return false;
 	}
 
 	@EventHandler
-	public final void executeOptionsOnClick(InventoryClickEvent event) {
+	public final void executeOnClick(InventoryClickEvent event) {
 		Inventory inventory = event.getInventory();
 		if(inventory == null) return;
 		if(!inventory.getTitle().equals(title)) return;
 		if(!(event.getWhoClicked() instanceof Player)) return;
 
+		onClick(event);
+	}
+	public void onClick(InventoryClickEvent event){
 		event.setCancelled(true);
 
 		if(options.containsKey(event.getSlot())) {
 			GUIOption option = options.get(event.getSlot());
 			if(option == null) return;
-			option.onClick((Player) event.getWhoClicked());
+			option.onClick(event);
 		}
 	}
+
+	@EventHandler
+	public final void executeOnClose(InventoryClickEvent event){
+		Inventory inventory = event.getInventory();
+		if(inventory == null) return;
+		if(!inventory.getTitle().equals(title)) return;
+		if(!(event.getWhoClicked() instanceof Player)) return;
+		onClose(event);
+	}
+	public void onClose(InventoryClickEvent event){}
+
 
 	public void activate(Plugin plugin) {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
@@ -77,32 +96,25 @@ public abstract class GUI implements Listener {
 	// The GUI Option calass
 	public static class GUIOption {
 		private final ItemStack icon;
-		private final int slot;
 		private final GUIRunnable onClick;
 
-// Constructor
-		public GUIOption(int slot, ItemStack icon, GUIRunnable onClick) {
+		// Constructor
+		public GUIOption(ItemStack icon, GUIRunnable onClick) {
 			this.icon = icon;
-			this.slot = slot;
 			this.onClick = onClick;
 		}
 
-		public final void onClick(Player owner) {
+		public final void onClick(InventoryClickEvent event) {
 			if(onClick != null)
-				onClick.run(owner);
+				onClick.run(event);
 		}
 
-// Getters
+		// Getters
 		public final ItemStack getIcon() {
 			return icon;
 		}
-
-		public final int getSlot() {
-			return slot;
-		}
 	}
-
 	public static abstract class GUIRunnable {
-		public abstract void run(Player owner);
+		public abstract void run(InventoryClickEvent event);
 	}
 }
