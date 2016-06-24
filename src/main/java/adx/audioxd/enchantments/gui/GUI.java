@@ -2,6 +2,7 @@ package adx.audioxd.enchantments.gui;
 
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,7 +25,7 @@ public abstract class GUI implements Listener {
 	// Constructor
 	public GUI(String title) {
 		options = new HashMap<>();
-		this.title = title;
+		this.title = ChatColor.RESET + title;
 
 		registerGUIOptions();
 		largestSlot++;
