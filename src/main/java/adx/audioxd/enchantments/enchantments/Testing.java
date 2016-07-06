@@ -6,8 +6,8 @@ import adx.audioxd.customenchantmentapi.enchantment.event.EnchantmentEventHandle
 import adx.audioxd.customenchantmentapi.enums.ItemType;
 import adx.audioxd.customenchantmentapi.events.bow.EArrowHitEvent;
 import adx.audioxd.customenchantmentapi.events.damage.EOwnerDamagedEvent;
-import adx.audioxd.customenchantmentapi.events.enchant.EEnchantEvent;
-import adx.audioxd.customenchantmentapi.events.enchant.EUnenchantEvent;
+import adx.audioxd.customenchantmentapi.events.enchant.enchant.EEnchantItemEvent;
+import adx.audioxd.customenchantmentapi.events.enchant.unenchant.EUnenchantItemEvent;
 import adx.audioxd.customenchantmentapi.events.inventory.EEquipEvent;
 import adx.audioxd.customenchantmentapi.events.inventory.EUnequipEvent;
 import adx.audioxd.customenchantmentapi.events.inventory.hand.EItemInMainHandEvent;
@@ -29,12 +29,12 @@ public class Testing extends Enchantment {
 	}
 
 	@EnchantmentEventHandler
-	public void enchant(EEnchantEvent event, int lvl) {
+	public void enchant(EEnchantItemEvent event, int lvl) {
 		Bukkit.broadcastMessage(ChatColor.GREEN + " enchanted" + event.getItem() + " and at level" + lvl);
 	}
 
 	@EnchantmentEventHandler
-	public void unenchant(EUnenchantEvent event) {
+	public void unenchant(EUnenchantItemEvent event) {
 		Bukkit.broadcastMessage(ChatColor.GREEN + " unenchanted" + event.getItem());
 	}
 
