@@ -6,7 +6,6 @@ import adx.audioxd.customenchantmentapi.enchantment.Enchantment;
 import adx.audioxd.customenchantmentapi.plugin.CEPLPlugin;
 import adx.audioxd.enchantments.enchantments.*;
 import adx.audioxd.enchantments.event.EHotbarSwapListener;
-import adx.audioxd.enchantments.gui.TestGUI;
 import adx.audioxd.enchantments.init.initRecipies;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -30,20 +29,18 @@ public class CustomEnchantments extends CEPLPlugin {
 	@Override
 	public void Enable() {
 		if(!EnchantmentRegistry.register(this, TEST))
-			getPluginLogger().severe("Couldn't Enable " + TEST.getName() + " Enchantment");
+			getPluginLogger().severe("Couldn't Enable " + TEST.getDisplay("") + " Enchantment");
 		if(!EnchantmentRegistry.register(this, DEBUG))
-			getPluginLogger().severe("Couldn't Enable " + DEBUG.getName() + " Enchantment");
+			getPluginLogger().severe("Couldn't Enable " + DEBUG.getDisplay("") + " Enchantment");
 		if(!EnchantmentRegistry.register(this, EXPLOSIVE))
-			getPluginLogger().severe("Couldn't Enable " + EXPLOSIVE.getName() + " Enchantment");
+			getPluginLogger().severe("Couldn't Enable " + EXPLOSIVE.getDisplay("") + " Enchantment");
 		if(!EnchantmentRegistry.register(this, OMNI_TOOL))
-			getPluginLogger().severe("Couldn't Enable " + OMNI_TOOL.getName() + " Enchantment");
+			getPluginLogger().severe("Couldn't Enable " + OMNI_TOOL.getDisplay("") + " Enchantment");
 		if(!EnchantmentRegistry.register(this, HAMMER))
-			getPluginLogger().severe("Couldn't Enable " + HAMMER.getName() + " Enchantment");
+			getPluginLogger().severe("Couldn't Enable " + HAMMER.getDisplay("") + " Enchantment");
 
 		Bukkit.getPluginManager().registerEvents(new EHotbarSwapListener(), this);
 
-		// This activated the GUI
-		TestGUI.get().activate(this);
 
 		initRecipies.init();
 	}
@@ -59,7 +56,6 @@ public class CustomEnchantments extends CEPLPlugin {
 
 		if(label.equalsIgnoreCase("testGUI")) {
 			if(sender instanceof Player) {
-				TestGUI.get().openGUI((Player) sender);
 				return true;
 			} else {
 				sender.sendMessage(ChatColor.RED + "This command must be executed ba a Player!");
